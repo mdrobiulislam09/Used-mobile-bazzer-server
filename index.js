@@ -24,10 +24,22 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 async function run() {
     try {
         const productCollection = client.db('twelveserver').collection('products');
+        const productsCollection = client.db('twelveserver').collection('product');
+
         app.get('/products', async(req, res) => {
             const query = {};
             const products = await productCollection.find(query).toArray();
             res.send(products);
+        })
+        app.get('/product', async(req, res) => {
+            const query = {};
+            const product = await productsCollection.find(query).toArray();
+            res.send(product);
+        })
+        app.get('/product/:category_id', async(req, res) => {
+            const query = {};
+            const product = await productsCollection.find(query).toArray();
+            res.send(product?.filter(n => n.category_id == req.params.category_id));
         })
         
     }
