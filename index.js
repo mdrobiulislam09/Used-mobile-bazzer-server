@@ -21,6 +21,7 @@ async function run() {
         const productCollection = client.db('twelveserver').collection('products');
         const productsCollection = client.db('twelveserver').collection('product');
         const bookingsCollection = client.db('twelveserver').collection('bookings');
+        const usersCollection = client.db('twelveserver').collection('users');
 
         app.get('/products', async(req, res) => {
             const query = {};
@@ -38,6 +39,18 @@ async function run() {
             const query = {};
             const product = await productsCollection.find(query).toArray();
             res.send(product);
+        })
+
+        app.get('/users', async(req, res) => {
+            const query = {};
+            const users = await usersCollection.find(query).toArray();
+            res.send(users)
+        })
+
+        app.post('/users', async(req, res) => {
+            const user = req.body;
+            const result = await usersCollection.insertOne(user);
+            res.send(result)
         })
 
         app.get('/bookings', async(req, res) => {
