@@ -53,6 +53,19 @@ async function run() {
             res.send(result)
         })
 
+        app.put('/users/admin/:id', async (req, res) => {
+            const id = req.params.id;
+            const filter = { _id: ObjectId(id) };
+            const option = { upsert: true};
+            const updatedDoc = {
+                $set: {
+                    role: 'admin'
+                }
+            }
+            const  result = await usersCollection.updateOne(filter, updatedDoc, option);
+            res.send(result)
+        })
+
         app.get('/bookings', async(req, res) => {
             let query = {}
             if(req.query.email){
