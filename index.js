@@ -72,8 +72,8 @@ async function run() {
                 query = {email: req.query.email}
             }
             const cursor = bookingsCollection.find(query)
-            const bookings = await cursor.toArray();
-            res.send(bookings)
+            const bookingss = await cursor.toArray();
+            res.send(bookingss)
         })
 
         app.post('/bookings', async(req, res) => {
